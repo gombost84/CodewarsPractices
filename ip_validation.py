@@ -1,17 +1,26 @@
 def is_valid_IP(strng):
-    list_items = [int(elem) for elem in strng.split('.')]
-    
-def validation(listing):
-    if len(listing) != 4:
-        print('False')
-    elif list(int(item))[0] == 0:
-        print('False')
-    for item in listing:        
+    list_items = [elem for elem in strng.split('.')]
+
+    if len(list_items) != 4:
+        return False
+
+    for item in list_items:
+
+        try:
+            int(item)
+        except ValueError:
+            return False
+
+        if len(item) == 0:
+            return False
+
+        if item[0] == '0' and len(item) > 1:
+            return False
+
+        if any(symbol in [' ', '\n'] for symbol in item):
+            return False
+
         if int(item) not in range(0, 256):
-            print('False')
-        else:
-            print('True')     
+            return False
 
-
-is_valid_IP('123.456.789.0')
-
+    return True
